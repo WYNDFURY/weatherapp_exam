@@ -1,47 +1,41 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div>
+    {{ test?.main.temp }}
+  </div>
+  <div class="mx-auto p-4 min-h-screen flex flex-col pb-16" style="background: url('backgrounds/sunny_day.jpg'); background-size: cover;">
+    <Current />
+    <Hourly />
+    <Daily />
+    
+    
+    <div class="fixed inset-x-0 bottom-0 pb-4 flex justify-center">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white h-16 w-16 leading-8 rounded-full shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out text-4xl">+</button>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script setup>
+import { reactive, ref } from "vue";
+
+import Current from "@/components/Current.vue";
+import Hourly from "@/components/Hourly.vue";
+import Daily from "@/components/Daily.vue";
+import ForecastsStore from "@/stores/forecasts.js";
+import geoLocation from "@/stores/geoLocation.js";
+import coords from "@/stores/coords.js";
+
+const test = ref(null);
+
+const fetchTest = async() => {
+  test.value = await ForecastsStore.getCurrent();
+  console.log(test);
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+fetchTest();
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+</script>
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
+<style>
+/* Add your global styles here */
 </style>
