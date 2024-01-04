@@ -1,0 +1,1 @@
+export { getWeatherLocation } from "./location/index.js"

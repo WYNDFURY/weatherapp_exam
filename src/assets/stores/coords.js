@@ -17,5 +17,4 @@ const fetchCoords = async () => {
         console.error(err.message);
     }
 };
-
-export default { coords, fetchCoords };
+export { coords, fetchCoords };

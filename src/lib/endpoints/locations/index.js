@@ -1,0 +1,1 @@
+export { getCoordinates as getNavigatorLocationsCoordinates} from "./navigator";
