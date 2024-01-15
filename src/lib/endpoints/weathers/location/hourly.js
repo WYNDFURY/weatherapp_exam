@@ -15,8 +15,6 @@ const getWeather = async (coordinates) => {
     if(!response.ok) return;
     return response.json();
 
-    
-
 }
 
 export {getWeather};

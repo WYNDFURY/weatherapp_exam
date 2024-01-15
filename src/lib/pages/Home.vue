@@ -13,7 +13,6 @@
   
   <script setup>
   
-  import { ref } from "vue";
   import Current from "@/lib/components/home/Current.vue";
   import Hourly from "@/lib/components/home/Hourly.vue";
   import Daily from "@/lib/components/home/Daily.vue";

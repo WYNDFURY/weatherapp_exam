@@ -1,4 +1,4 @@
-import { getNavigatorLocationsCoordinates, getWeatherLocation } from "@/lib/endpoints";
+import { getNavigatorLocationsCoordinates, getLocationCurrentWeather, getLocationDailyWeather } from "@/lib/endpoints";
 import { ref } from "vue";
 
 export const getLocationServices = () => {
@@ -20,11 +20,18 @@ export const getLocationServices = () => {
     const currentWeather = ref();
     
     const getCurrentWeather = async () => {
-        const currentCoordinates = await getNavigatorLocationsCoordinates();
-        currentWeather.value = await getWeatherLocation(currentCoordinates);
-      };
+      const currentCoordinates = await getNavigatorLocationsCoordinates();
+      currentWeather.value = await getLocationCurrentWeather(currentCoordinates);
+    };
 
+    const dailyWeather = ref();
 
+    const getDailyWeather = async () => {
+      const currentCoordinates = await getNavigatorLocationsCoordinates();  
+      dailyWeather.value = await getLocationDailyWeather(currentCoordinates);
+    }
+    
+    
 
-    return { currentHour, currentDate, currentWeather, getCurrentWeather };
+    return { currentHour, currentDate, currentWeather, dailyWeather, getCurrentWeather, getDailyWeather };
 }
