@@ -3,26 +3,24 @@
 
     <h2 class="font-bold text-xl mb-4">Prochains Jours</h2>
     <div class="overflow-x-auto">
- {{dailyWeather?.list}}
+      <div class="flex space-x-8">
+        <div class="text-center" v-for="(day, index) in dailyWeatherList" :key="index">
+          <p class="text-lg">{{ day.weekDay}}</p>
+          <div class="w-10 h-10 bg-gray-300 rounded-full mx-auto my-2"></div>
+          <p class="text-sm text-blue-500">{{ day.minTemp.toFixed(2) }}°C</p>
+          <p class="text-sm text-red-600">{{ day.maxTemp.toFixed(2) }}°C</p>
+        </div>
+      </div>
     </div>
   </section>
 </template>
   
-<script setup type="module">
-import { getLocationServices } from "@/lib/services/weathers/location.js";
+<script setup>
+import { useLocationServices } from "@/lib/services/weathers/location.js";
 import { ref, onMounted, watch } from "vue";
 
-const { getDailyWeather, dailyWeather } = getLocationServices();
-getDailyWeather();
+const {fetchDailyWeatherList, forecastsByDay, dailyWeatherList } = useLocationServices();
+fetchDailyWeatherList();
 
-
-watch(dailyWeather, (newVal) => {
-  if (newVal) {
-    // Access and log specific parts of the response
-    console.log('City:', newVal.city.name);
-    // console.log('Temperature:', newVal._rawValue.list[0].main.temp);
-    // Add more properties as needed
-  }
-});
 </script>
   

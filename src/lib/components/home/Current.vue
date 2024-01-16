@@ -22,10 +22,10 @@
   
 <script setup>
 
-import { getLocationServices } from "@/lib/services/weathers/location.js";
+import { useLocationServices } from "@/lib/services/weathers/location.js";
 
 
-const { currentDate, currentHour, currentWeather, getCurrentWeather } = getLocationServices();
+const { currentDate, currentHour, currentWeather, getCurrentWeather } = useLocationServices();
 getCurrentWeather();
 
 </script>
