@@ -1,2 +1,2 @@
-export { getLocationCurrentWeather } from "./location/index.js"
-export { getLocationDailyForecastsWeather, getLocationHourlyForecastsWeather } from "./location/index.js"
+export { fetchLocationCurrentWeather } from "./location/index.js"
+export { fetchLocationDailyForecasts, fetchLocationHourlyForecasts } from "./location/index.js"

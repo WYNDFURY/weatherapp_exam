@@ -1,6 +1,4 @@
 <template>
-    <div>
-    </div>
     <div class="mx-auto p-4 min-h-screen flex flex-col pb-16" :style="`background: url(${sunny}); background-size: cover;`">
       <Current />
       <Hourly />

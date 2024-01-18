@@ -1,4 +1,4 @@
-const getWeather = async (coordinates) => {
+const fetchWeather = async (coordinates) => {
 
     const TEMP = {
         CELCIUS: "metric",
@@ -19,4 +19,4 @@ const getWeather = async (coordinates) => {
 
 }
 
-export {getWeather};
+export {fetchWeather};

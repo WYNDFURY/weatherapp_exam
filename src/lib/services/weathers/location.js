@@ -1,14 +1,14 @@
 import {
   getNavigatorLocationsCoordinates,
-  getLocationCurrentWeather,
-  getLocationDailyForecastsWeather,
-  getLocationHourlyForecastsWeather
+  fetchLocationCurrentWeather,
+  fetchLocationDailyForecasts,
+  fetchLocationHourlyForecasts
 } from "@/lib/endpoints";
 import { ref } from "vue";
 
 export const useLocationServices = () => {
 
-  // CURRENT WEATHER
+    // CURRENT WEATHER --------------------
 
 
   // current day
@@ -23,27 +23,30 @@ export const useLocationServices = () => {
   // current date/hour
   
   const currentHour = currentDay.toLocaleTimeString("fr");
-  const currentDate = currentDay.toLocaleDateString("en", options);
+  const currentDate = currentDay.toLocaleDateString("fr", options);
 
   const currentWeather = ref(null);
 
   const getCurrentWeather = async () => {
-    const currentCoordinates = await getNavigatorLocationsCoordinates();
-    currentWeather.value = await getLocationCurrentWeather(currentCoordinates);
+    const navigatorCoordinates = await getNavigatorLocationsCoordinates();
+    currentWeather.value = await fetchLocationCurrentWeather(navigatorCoordinates);
   };
 
-  // FORECASTS WEATHER
+        // FORECASTS --------------------
 
-  const forecastsWeather = ref(null);
-  const dailyWeatherList = ref(null);
-  const hourlyWeatherList = ref(null);
+  const forecasts = ref(null);
+  const dailyForecastsList = ref(null);
+  const hourlyForecastsList = ref(null);
 
-  // function qui fetch les données de l'api
-  const getForecastsWeather = async () => {
-    const currentCoordinates = await getNavigatorLocationsCoordinates();
-    forecastsWeather.value = await getLocationDailyForecastsWeather(currentCoordinates);
+
+  // function qui fetch les données daily de l'api
+  const fetchNavigatorDailyForecasts = async () => {
+    const navigatorCoordinates = await getNavigatorLocationsCoordinates();
+    forecasts.value = await fetchLocationDailyForecasts(navigatorCoordinates);
   };
 
+
+    // DAILY
 
   // function qui calcule l'avg par jour sur base des forecasts tous les 3h (array de 40)
   const calculateAveragesByDay = (forecasts) => {
@@ -92,23 +95,32 @@ export const useLocationServices = () => {
   };
 
 
-  // function qui utilise la function de calcul à partir du fetch (getDailyWeather) et qui assigne le tout dans dailyWeatherList
+  // function qui utilise la function de calcul à partir du fetch (getDailyForecasts) et qui assigne le tout dans dailyForecastsList
 
-  const fetchDailyWeatherList = async () => {
-    await getForecastsWeather();
-    dailyWeatherList.value = calculateAveragesByDay(forecastsWeather?.value?.list);
+  const getNavigatorDailyForecastsList = async () => {
+    await fetchNavigatorDailyForecasts();
+    dailyForecastsList.value = calculateAveragesByDay(forecasts?.value?.list);
   };
+
+      // HOURLY
+
+    // function qui fetch les données hourly de l'api
+  const getNavigatorHourlyForecastsList = async () => {
+    const navigatorCoordinates = await getNavigatorLocationsCoordinates();
+    forecasts.value = await fetchLocationHourlyForecasts(navigatorCoordinates);
+    hourlyForecastsList.value = forecasts?.value?.list;
+  };
+
 
   return {
     currentHour,
     currentDate,
     currentWeather,
-    forecastsWeather,
-    dailyWeatherList,
-    hourlyWeatherList,
+    forecasts,
+    dailyForecastsList,
+    hourlyForecastsList,
     getCurrentWeather,
-    getForecastsWeather,
-    fetchDailyWeatherList,
-    calculateAveragesByDay,
+    getNavigatorDailyForecastsList,
+    getNavigatorHourlyForecastsList,
   };
 };

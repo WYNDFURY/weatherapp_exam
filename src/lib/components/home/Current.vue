@@ -26,6 +26,8 @@ import { useLocationServices } from "@/lib/services/weathers/location.js";
 
 
 const { currentDate, currentHour, currentWeather, getCurrentWeather } = useLocationServices();
+
+
 getCurrentWeather();
 
 </script>

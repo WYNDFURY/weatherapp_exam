@@ -1,4 +1,4 @@
-const getDailyWeather = async (coordinates) => {
+const fetchDailyForecasts = async (coordinates) => {
 
     const TEMP = {
         CELCIUS: "metric",
@@ -17,7 +17,7 @@ const getDailyWeather = async (coordinates) => {
 
 }
 
-const getHourlyWeather = async (coordinates) => {
+const fetchHourlyForecasts = async (coordinates) => {
 
     const TEMP = {
         CELCIUS: "metric",
@@ -30,10 +30,10 @@ const getHourlyWeather = async (coordinates) => {
     const apiKey = "3bf91878b99224bae4b99eddee3489f2";
     const lang = "fr"
     
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&cnt="7"&appid=${apiKey}&lang=${lang}&units=${unit}`);
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&cnt=7&appid=${apiKey}&lang=${lang}&units=${unit}`);
     if(!response.ok) return;
     return response.json();
 
 }
 
-export {getDailyWeather, getHourlyWeather};
+export {fetchDailyForecasts, fetchHourlyForecasts};

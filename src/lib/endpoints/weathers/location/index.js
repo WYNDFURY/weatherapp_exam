@@ -1,3 +1,3 @@
-export {getWeather as getLocationCurrentWeather} from "./current";
-export {getDailyWeather as getLocationDailyForecastsWeather, getHourlyWeather as getLocationHourlyForecastsWeather} from "./forecasts";
+export {fetchWeather as fetchLocationCurrentWeather} from "./current";
+export {fetchDailyForecasts as fetchLocationDailyForecasts, fetchHourlyForecasts as fetchLocationHourlyForecasts} from "./forecasts";
 
